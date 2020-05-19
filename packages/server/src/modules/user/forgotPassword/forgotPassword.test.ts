@@ -7,7 +7,8 @@ import { createForgotPasswordLink } from "../../../utils/createForgotPasswordLin
 import { forgotPasswordLockAccount } from "../../../utils/forgotPasswordLockAccount";
 import { TestClient } from "../../../utils/TestClient";
 import { forgotPasswordLockError } from "../login/errorMessages";
-import { expiredKeyError, passwordlNotLongEnough } from "./errorMessages";
+import { expiredKeyError } from "./errorMessages";
+import { passwordlNotLongEnough } from "@abb/common";
 
 let userId: string;
 const redis = new Redis();

@@ -1,8 +1,9 @@
 {
-  "name": "web",
+  "name": "@abb/web",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@abb/common": "1.0.0",
     "@ant-design/icons": "^4.1.0",
     "@testing-library/jest-dom": "^4.2.4",
     "antd": "^4.2.3",
@@ -28,6 +29,7 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.5",
     "@types/yup": "^0.28.3",
+    "tslint": "^6.1.2",
     "typescript": "~3.7.2"
   },
   "scripts": {

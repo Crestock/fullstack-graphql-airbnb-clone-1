@@ -6,7 +6,7 @@ import { ResolverMap } from "../../../types/graphql-utils";
 import { createForgotPasswordLink } from "../../../utils/createForgotPasswordLink";
 import { forgotPasswordLockAccount } from "../../../utils/forgotPasswordLockAccount";
 import { formatYupError } from "../../../utils/formatYupError";
-import { registerPasswordValidation } from "../../../yupSchemas";
+import { registerPasswordValidation } from "@abb/common";
 import { expiredKeyError, userNotFoundError } from "./errorMessages";
 
 const schema = yup.object().shape({

@@ -3,12 +3,12 @@ import { Connection } from "typeorm";
 import { User } from "../../../entity/User";
 import { createTestConn } from "../../../testSetup/createTestConn";
 import { TestClient } from "../../../utils/TestClient";
+import { duplicateEmail } from "./errorMessages";
 import {
-  duplicateEmail,
   emailNotLongEnough,
   invalidEmail,
   passwordlNotLongEnough,
-} from "./errorMessages";
+} from "@abb/common";
 
 let conn: Connection;
 faker.seed(Date.now() + 5);
