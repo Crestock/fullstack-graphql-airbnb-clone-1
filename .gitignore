@@ -6,3 +6,4 @@ tmp/
 temp/
 *.log
 dump.rbd
+.env.prod
