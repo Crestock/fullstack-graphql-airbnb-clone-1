@@ -6,7 +6,8 @@
   "license": "ISC",
   "scripts": {
     "build": "rimraf ./dist && tsc",
-    "gen-types": "apollo client:codegen --includes=./src/**/*.tsx --endpoint=http://localhost:4000 --tagName=gql --target=typescript --outputFlat=./src/schemaTypes.ts"
+    "gen:types": "apollo client:codegen --includes=./src/**/*.tsx --endpoint=http://localhost:4000 --tagName=gql --target=typescript --outputFlat=./src/schemaTypes.ts",
+    "refresh:types": "npm run gen:types && npm run build"
   },
   "dependencies": {
     "graphql": "^14.3.1",
