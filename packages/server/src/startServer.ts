@@ -12,6 +12,7 @@ import { confirmEmail } from "./routes/confirmEmail";
 import { genSchema } from "./utils/genSchema";
 import { redisSessionPrefix } from "./constants";
 import { createTestConn } from "./testSetup/createTestConn";
+import { createTypeormConn } from "./utils/createTypeormConn";
 
 const SESSION_SECRET = "sjkldfhaiofhewuio";
 const RedisStore = connectRedis(session);
@@ -20,6 +21,7 @@ export const startServer = async () => {
   if (process.env.NODE_ENV === "test") {
     await redis.flushall();
   }
+
   const schema: any = genSchema();
   const server = new GraphQLServer({
     schema,
@@ -69,7 +71,7 @@ export const startServer = async () => {
   if (process.env.NODE_ENV === "test") {
     await createTestConn(true);
   } else {
-    await createTestConn();
+    await createTypeormConn();
   }
 
   const port = process.env.PORT || 4000;

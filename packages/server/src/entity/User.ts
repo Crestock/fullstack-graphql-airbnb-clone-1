@@ -12,7 +12,7 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column("varchar", { length: 255, nullable: true })
+  @Column("varchar", { length: 255 })
   email: string | null;
 
   @Column("text", { nullable: true })
