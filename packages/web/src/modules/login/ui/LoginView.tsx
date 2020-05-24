@@ -1,14 +1,8 @@
 import * as React from "react";
 import { Form, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import {
-  withFormik,
-  FormikErrors,
-  FormikProps,
-  Field,
-  Form as FForm,
-} from "formik";
-import { validUserSchema } from "@abb/common";
+import { withFormik, FormikProps, Field, Form as FForm } from "formik";
+import { loginSchema } from "@abb/common";
 import { InputField } from "../../shared/InputField";
 import { Link } from "react-router-dom";
 
@@ -18,7 +12,7 @@ interface FormValues {
 }
 
 interface Props {
-  submit: (values: FormValues) => Promise<FormikErrors<FormValues> | null>;
+  submit: (values: FormValues) => Promise<{ [key: string]: string } | null>;
 }
 
 class C extends React.PureComponent<FormikProps<FormValues> & Props> {
@@ -45,16 +39,22 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
           />
 
           <Form.Item>
+            <a className="login-form-forgot" href="/forgot-password">
+              Forgot password
+            </a>
+          </Form.Item>
+
+          <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
               className="login-form-button"
             >
-              Register
+              Login
             </Button>
           </Form.Item>
           <Form.Item>
-            Or <Link to="/login">login now!</Link>
+            Or <Link to="/register">register now!</Link>
           </Form.Item>
         </div>
       </FForm>
@@ -62,8 +62,10 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
   }
 }
 
-export const RegisterView = withFormik<Props, FormValues>({
-  validationSchema: validUserSchema,
+export const LoginView = withFormik<Props, FormValues>({
+  validationSchema: loginSchema,
+  validateOnBlur: false,
+  validateOnChange: false,
   mapPropsToValues: () => ({ email: "", password: "" }),
   handleSubmit: async (values, { props, setErrors }) => {
     const errors = await props.submit(values);
