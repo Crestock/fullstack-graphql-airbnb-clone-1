@@ -1,15 +1,12 @@
 import * as React from "react";
 import { Form, Button } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import { withFormik, FormikProps, Field, Form as FForm } from "formik";
-import { validUserSchema } from "@abb/common";
 import { InputField } from "../../shared/InputField";
-import { Link } from "react-router-dom";
 import { NormalizedErrorMap } from "@abb/controller";
 
 interface FormValues {
   email: string;
-  password: string;
 }
 
 interface Props {
@@ -31,13 +28,6 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
             placeholder="Email"
             component={InputField}
           />
-          <Field
-            name="password"
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="Password"
-            component={InputField}
-          />
 
           <Form.Item>
             <Button
@@ -45,11 +35,8 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
               htmlType="submit"
               className="login-form-button"
             >
-              Register
+              reset password
             </Button>
-          </Form.Item>
-          <Form.Item>
-            Or <Link to="/login">login now!</Link>
           </Form.Item>
         </div>
       </FForm>
@@ -57,9 +44,8 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
   }
 }
 
-export const RegisterView = withFormik<Props, FormValues>({
-  validationSchema: validUserSchema,
-  mapPropsToValues: () => ({ email: "", password: "" }),
+export const ForgotPasswordView = withFormik<Props, FormValues>({
+  mapPropsToValues: () => ({ email: "" }),
   handleSubmit: async (values, { props, setErrors }) => {
     const errors = await props.submit(values);
     if (errors) {

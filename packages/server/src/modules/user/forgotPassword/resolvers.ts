@@ -4,10 +4,10 @@ import { forgotPasswordPrefix } from "../../../constants";
 import { User } from "../../../entity/User";
 import { ResolverMap } from "../../../types/graphql-utils";
 import { createForgotPasswordLink } from "../../../utils/createForgotPasswordLink";
-import { forgotPasswordLockAccount } from "../../../utils/forgotPasswordLockAccount";
 import { formatYupError } from "../../../utils/formatYupError";
 import { registerPasswordValidation } from "@abb/common";
-import { expiredKeyError, userNotFoundError } from "./errorMessages";
+import { expiredKeyError } from "./errorMessages";
+import { sendEmail } from "../../../utils/sendEmail";
 
 const schema = yup.object().shape({
   newPassword: registerPasswordValidation,
@@ -22,17 +22,23 @@ export const resolvers: ResolverMap = {
     ) => {
       const user = await User.findOne({ where: { email } });
       if (!user) {
-        return [
-          {
-            path: "email",
-            message: userNotFoundError,
-          },
-        ];
+        return { ok: true };
+
+        // return [
+        //   {
+        //     path: "email",
+        //     message: userNotFoundError,
+        //   },
+        // ];
       }
 
-      await forgotPasswordLockAccount(user.id, redis);
-      // @todo add frontend url
-      await createForgotPasswordLink("", user.id, redis);
+      // await forgotPasswordLockAccount(user.id, redis);
+      const url = await createForgotPasswordLink(
+        process.env.FRONTEND_HOST as string,
+        user.id,
+        redis
+      );
+      await sendEmail(email, url, "reset password").catch(console.error);
       // @send email with url
       return true;
     },

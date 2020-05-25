@@ -3,12 +3,13 @@ import { graphql, ChildMutateProps } from "react-apollo";
 import gql from "graphql-tag";
 import { LoginMutation, LoginMutationVariables } from "../../schemaTypes";
 import { normalizeErrors } from "../../utils/normalizeErrors";
+import { NormalizedErrorMap } from "../../types/NormalizedErrorMap";
 
 interface Props {
   children: (data: {
     submit: (
       values: LoginMutationVariables
-    ) => Promise<{ [key: string]: string } | null>;
+    ) => Promise<NormalizedErrorMap | null>;
   }) => JSX.Element | null;
 }
 
