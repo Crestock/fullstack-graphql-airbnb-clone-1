@@ -4,24 +4,27 @@ import { LockOutlined } from "@ant-design/icons";
 import { withFormik, FormikProps, Field, Form as FForm } from "formik";
 import { changePasswordSchema } from "@abb/common";
 import { InputField } from "../../shared/InputField";
-import { NormalizedErrorMap } from "@abb/controller";
+import {
+  NormalizedErrorMap,
+  ForgotPasswordChangeMutationVariables,
+} from "@abb/controller";
 
 interface FormValues {
   newPassword: string;
 }
 
 interface Props {
-  submit: (values: FormValues) => Promise<NormalizedErrorMap | null>;
+  onFinish: () => void;
+  token: string;
+  submit: (
+    values: ForgotPasswordChangeMutationVariables
+  ) => Promise<NormalizedErrorMap | null>;
 }
 
 class C extends React.PureComponent<FormikProps<FormValues> & Props> {
   render() {
-    const { handleSubmit } = this.props;
     return (
-      <FForm
-        style={{ display: "flex", marginTop: 100 }}
-        onSubmit={handleSubmit}
-      >
+      <FForm style={{ display: "flex", marginTop: 100 }}>
         <div style={{ width: 400, margin: "auto" }}>
           <Field
             name="newPassword"
@@ -49,10 +52,12 @@ class C extends React.PureComponent<FormikProps<FormValues> & Props> {
 export const ChangePasswordView = withFormik<Props, FormValues>({
   validationSchema: changePasswordSchema,
   mapPropsToValues: () => ({ newPassword: "" }),
-  handleSubmit: async (values, { props, setErrors }) => {
-    const errors = await props.submit(values);
+  handleSubmit: async ({ newPassword }, { props, setErrors }) => {
+    const errors = await props.submit({ newPassword, key: props.token });
     if (errors) {
       setErrors(errors);
+    } else {
+      props.onFinish();
     }
   },
 })(C);

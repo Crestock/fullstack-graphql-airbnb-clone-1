@@ -10,17 +10,14 @@ interface FormValues {
 }
 
 interface Props {
+  onFinish: () => void;
   submit: (values: FormValues) => Promise<NormalizedErrorMap | null>;
 }
 
 class C extends React.PureComponent<FormikProps<FormValues> & Props> {
   render() {
-    const { handleSubmit } = this.props;
     return (
-      <FForm
-        style={{ display: "flex", marginTop: 100 }}
-        onSubmit={handleSubmit}
-      >
+      <FForm style={{ display: "flex", marginTop: 100 }}>
         <div style={{ width: 400, margin: "auto" }}>
           <Field
             name="email"
@@ -50,6 +47,8 @@ export const ForgotPasswordView = withFormik<Props, FormValues>({
     const errors = await props.submit(values);
     if (errors) {
       setErrors(errors);
+    } else {
+      props.onFinish();
     }
   },
 })(C);
