@@ -15,8 +15,8 @@
     "database": "graphql-ts-server-boilerplate",
     "synchronize": false,
     "logging": true,
-    "entities": ["src/entity/**/*.ts"],
-    "migrations": ["src/migration/**/*.ts"],
+    "entities": ["./dist/entity/**/*.js"],
+    "migrations": ["./dist/migration/*.js"],
     "subscribers": ["src/subscriber/**/*.ts"],
     "cli": {
       "entitiesDir": "src/entity",
@@ -35,8 +35,8 @@
     "synchronize": true,
     "logging": false,
     "dropSchema": true,
-    "entities": ["src/entity/**/*.ts"],
-    "migrations": ["src/migration/**/*.ts"],
+    "entities": ["./dist/entity/**/*.js"],
+    "migrations": ["./dist/migration/*.js"],
     "subscribers": ["src/subscriber/**/*.ts"],
     "cli": {
       "entitiesDir": "src/entity",
