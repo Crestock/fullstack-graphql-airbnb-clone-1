@@ -1,23 +1,26 @@
 import {
-  BaseEntity,
-  Column,
   Entity,
+  Column,
   PrimaryGeneratedColumn,
   ManyToOne,
+  BaseEntity,
 } from "typeorm";
 import { User } from "./User";
 
 @Entity("listings")
 export class Listing extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+  @PrimaryGeneratedColumn("uuid") id: string;
 
   @Column("varchar", { length: 100 })
   name: string;
 
+  @Column("varchar", { length: 100 })
+  category: string;
+
   @Column("text") pictureUrl: string;
 
-  @Column("varchar", { length: 255 }) description: string;
+  @Column("varchar", { length: 255 })
+  description: string;
 
   @Column("int") price: number;
 
