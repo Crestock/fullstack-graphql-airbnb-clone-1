@@ -7,7 +7,7 @@ export const resolvers: ResolverMap = {
       console.log(session);
 
       if (!session.userId) {
-        // user id not logged in
+        // user is not logged in
         throw new Error("not authenticated");
       }
 
