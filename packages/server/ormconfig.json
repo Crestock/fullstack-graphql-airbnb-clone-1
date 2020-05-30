@@ -15,9 +15,9 @@
     "database": "graphql-ts-server-boilerplate",
     "synchronize": false,
     "logging": true,
-    "entities": ["./dist/entity/**/*.js"],
+    "entities": ["./dist/entity/*.js"],
     "migrations": ["./dist/migration/*.js"],
-    "subscribers": ["src/subscriber/**/*.ts"],
+    "subscribers": ["src/subscriber/*.js"],
     "cli": {
       "entitiesDir": "src/entity",
       "migrationsDir": "src/migration",
