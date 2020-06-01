@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Form, Button } from "antd";
-import { Formik, Form as FForm } from "formik";
+import { Formik, Form as FForm, FormikHelpers as FormikActions } from "formik";
 import { RouteComponentProps } from "react-router-dom";
+import { withCreateListing, NewPropsCreateListing } from "@abb/controller";
 import { Page1 } from "./ui/Page1";
 import { Page2 } from "./ui/Page2";
 import { Page3 } from "./ui/Page3";
@@ -25,16 +26,20 @@ interface State {
 // tslint:disable-next-line: jsx-key
 const pages = [<Page1 />, <Page2 />, <Page3 />];
 
-export class CreateListingConnector extends React.PureComponent<
-  RouteComponentProps<{}>,
+class C extends React.PureComponent<
+  RouteComponentProps<{}> & NewPropsCreateListing,
   State
 > {
   state = {
     page: 0,
   };
 
-  submit = (values: any) => {
-    console.log("values: ", values);
+  submit = async (
+    values: FormValues,
+    { setSubmitting }: FormikActions<FormValues>
+  ) => {
+    await this.props.createListing(values);
+    setSubmitting(false);
   };
 
   nextPage = () => {
@@ -57,18 +62,28 @@ export class CreateListingConnector extends React.PureComponent<
         }}
         onSubmit={this.submit}
       >
-        {() => (
+        {({ isSubmitting, isValid }) => (
           <FForm style={{ display: "flex", marginTop: 100 }}>
             <div style={{ width: 400, margin: "auto" }}>
               {pages[this.state.page]}
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <Form.Item>
                   {this.state.page === pages.length - 1 ? (
-                    <Button type="primary" htmlType="submit">
-                      create listing
-                    </Button>
+                    <div>
+                      <Button
+                        type="primary"
+                        htmlType="submit"
+                        disabled={isSubmitting}
+                      >
+                        create listing
+                      </Button>
+                    </div>
                   ) : (
-                    <Button type="primary" onClick={this.nextPage}>
+                    <Button
+                      type="primary"
+                      htmlType="button"
+                      onClick={this.nextPage}
+                    >
                       next
                     </Button>
                   )}
@@ -81,3 +96,5 @@ export class CreateListingConnector extends React.PureComponent<
     );
   }
 }
+
+export const CreateListingConnector = withCreateListing(C);
