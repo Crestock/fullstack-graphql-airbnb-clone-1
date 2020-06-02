@@ -47,6 +47,8 @@ class C extends React.PureComponent<
   };
 
   render() {
+    console.log(this.props);
+
     return (
       <Formik<FormValues, {}>
         initialValues={{

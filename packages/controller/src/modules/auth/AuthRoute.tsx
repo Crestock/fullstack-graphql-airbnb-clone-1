@@ -22,7 +22,14 @@ export class C extends React.PureComponent<ChildProps<Props, MeQuery>> {
 
     if (!data.me) {
       // user not logged in
-      return <Redirect to="/login" />;
+      return (
+        <Redirect
+          to={{
+            pathname: "/login",
+            state: { next: routeProps.location.pathname },
+          }}
+        />
+      );
     }
 
     const Component = component as any;
