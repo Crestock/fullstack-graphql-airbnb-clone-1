@@ -21,7 +21,7 @@ export class LoginConnector extends React.PureComponent<
   };
 
   render() {
-    console.log(this.props.location.state);
+    console.log(this.props);
     return (
       <LoginController>
         {({ submit }) => <LoginView submit={submit} onFinish={this.onFinish} />}

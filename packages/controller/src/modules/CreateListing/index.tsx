@@ -35,7 +35,7 @@ export const createListingMutation = gql`
   }
 `;
 
-export interface NewPropsCreateListing {
+export interface IWithCreateListing {
   createListing: (variables: CreateListingMutationVariables) => void;
 }
 
@@ -43,7 +43,7 @@ export const withCreateListing = graphql<
   any,
   CreateListingMutation,
   CreateListingMutationVariables,
-  NewPropsCreateListing
+  IWithCreateListing
 >(createListingMutation, {
   props: ({ mutate }) => ({
     createListing: async (variables) => {

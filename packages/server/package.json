@@ -17,6 +17,7 @@
     "@types/node-fetch": "^2.5.7",
     "@types/nodemailer": "^6.4.0",
     "@types/request-promise": "^4.1.46",
+    "@types/shortid": "^0.0.29",
     "@types/sparkpost": "^2.1.4",
     "@types/uuid": "^7.0.3",
     "@types/ws": "^7.2.4",
@@ -58,6 +59,7 @@
     "rate-limit-redis": "^2.0.0",
     "reflect-metadata": "^0.1.10",
     "request-promise": "^4.2.5",
+    "shortid": "^2.2.15",
     "typeorm": "0.2.20",
     "uuid": "^8.0.0",
     "yup": "^0.28.5"

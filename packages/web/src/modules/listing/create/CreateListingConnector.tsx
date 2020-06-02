@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Form, Button } from "antd";
-import { Formik, Form as FForm, FormikHelpers as FormikActions } from "formik";
+import { Formik, Form as FForm } from "formik";
 import { RouteComponentProps } from "react-router-dom";
-import { withCreateListing, NewPropsCreateListing } from "@abb/controller";
+import { withCreateListing, IWithCreateListing } from "@abb/controller";
 import { Page1 } from "./ui/Page1";
 import { Page2 } from "./ui/Page2";
 import { Page3 } from "./ui/Page3";
@@ -27,19 +27,19 @@ interface State {
 const pages = [<Page1 />, <Page2 />, <Page3 />];
 
 class C extends React.PureComponent<
-  RouteComponentProps<{}> & NewPropsCreateListing,
+  RouteComponentProps<{}> & IWithCreateListing,
   State
 > {
   state = {
     page: 0,
   };
 
-  submit = async (
-    values: FormValues,
-    { setSubmitting }: FormikActions<FormValues>
+  submit = (
+    values: FormValues
+    // { setSubmitting }: FormikActions<FormValues> // FormikHelpers
   ) => {
-    await this.props.createListing(values);
-    setSubmitting(false);
+    this.props.createListing(values);
+    // setSubmitting(false);
   };
 
   nextPage = () => {
@@ -47,8 +47,6 @@ class C extends React.PureComponent<
   };
 
   render() {
-    console.log(this.props);
-
     return (
       <Formik<FormValues, {}>
         initialValues={{
@@ -64,7 +62,7 @@ class C extends React.PureComponent<
         }}
         onSubmit={this.submit}
       >
-        {({ isSubmitting, isValid }) => (
+        {() => (
           <FForm style={{ display: "flex", marginTop: 100 }}>
             <div style={{ width: 400, margin: "auto" }}>
               {pages[this.state.page]}
@@ -72,11 +70,7 @@ class C extends React.PureComponent<
                 <Form.Item>
                   {this.state.page === pages.length - 1 ? (
                     <div>
-                      <Button
-                        type="primary"
-                        htmlType="submit"
-                        disabled={isSubmitting}
-                      >
+                      <Button type="primary" htmlType="submit">
                         create listing
                       </Button>
                     </div>

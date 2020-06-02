@@ -14,8 +14,8 @@ import { genSchema } from "./utils/genSchema";
 import { redisSessionPrefix } from "./constants";
 import { createTestConn } from "./testSetup/createTestConn";
 import { createTypeormConn } from "./utils/createTypeormConn";
-// import { middleware } from "./middleware";
-import { middlwareShield } from "./shield";
+import { middleware } from "./middleware";
+// import { middlwareShield } from "./shield";
 
 const SESSION_SECRET = "sjkldfhaiofhewuio";
 const RedisStore = connectRedis(session);
@@ -25,9 +25,9 @@ export const startServer = async () => {
     await redis.flushall();
   }
 
-  const schema: any = genSchema();
-  // applyMiddleware(schema, middleware);
-  applyMiddleware(schema, middlwareShield);
+  const schema = genSchema();
+  applyMiddleware(schema, middleware);
+  // applyMiddleware(schema, middlwareShield);
 
   const server = new GraphQLServer({
     schema,
