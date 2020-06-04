@@ -8,6 +8,17 @@ export const DropzoneField: React.SFC<FieldProps<any>> = ({
   ...props
 }) => {
   return (
+    // <Dropzone
+    // accept="image/jpeg, image/png"
+    // multiple={false}
+    //   // tslint:disable-next-line: jsx-no-lambda
+    //   onDrop={([file]) => {
+    //     setFieldValue(name, file);
+    //   }}
+    //   {...props}
+    // >
+    //   <p>Click to select files</p>
+    // </Dropzone>
     <Dropzone
       accept="image/jpeg, image/png"
       multiple={false}
@@ -17,7 +28,14 @@ export const DropzoneField: React.SFC<FieldProps<any>> = ({
       }}
       {...props}
     >
-      {() => <p>Click to select files</p>}
+      {({ getRootProps, getInputProps }) => (
+        <section>
+          <div {...getRootProps({ className: "dropzone" })}>
+            <input {...getInputProps()} />
+            <p>click to select files</p>
+          </div>
+        </section>
+      )}
     </Dropzone>
   );
 };

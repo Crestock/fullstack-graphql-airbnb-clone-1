@@ -10,6 +10,7 @@ type Listing {
   latitude: Float!
   longitude: Float!
   amenities: [String!]!
+  owner: User!
 }
 
 type Query {

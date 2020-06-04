@@ -17,7 +17,7 @@ class C extends React.PureComponent<IWithFindListings> {
             style={{ width: 240 }}
             cover={l.pictureUrl && <img src={l.pictureUrl} alt="images" />}
           >
-            <Meta title={l.name} description="www.instagram.com" />
+            <Meta title={l.name} description={l.owner.email} />
           </Card>
         ))}
       </div>
