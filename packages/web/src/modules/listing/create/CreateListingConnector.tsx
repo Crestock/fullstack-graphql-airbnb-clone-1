@@ -8,6 +8,8 @@ import { Page2 } from "./ui/Page2";
 import { Page3 } from "./ui/Page3";
 
 interface FormValues {
+  // ImageFile
+  picture: File | null;
   name: string;
   category: string;
   description: string;
@@ -50,6 +52,7 @@ class C extends React.PureComponent<
     return (
       <Formik<FormValues, {}>
         initialValues={{
+          picture: null,
           name: "",
           category: "",
           description: "",
