@@ -54,6 +54,7 @@ export interface CreateListingMutation {
 }
 
 export interface CreateListingMutationVariables {
+  picture?: any | null;
   name: string;
   category: string;
   description: string;
@@ -63,6 +64,26 @@ export interface CreateListingMutationVariables {
   latitude: number;
   longitude: number;
   amenities: string[];
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: FindListingsQuery
+// ====================================================
+
+export interface FindListingsQuery_findListings {
+  __typename: "Listing";
+  id: string;
+  name: string;
+  pictureUrl: string;
+}
+
+export interface FindListingsQuery {
+  findListings: FindListingsQuery_findListings[];
 }
 
 /* tslint:disable */
