@@ -16,6 +16,7 @@ import { redisSessionPrefix } from "./constants";
 import { createTestConn } from "./testSetup/createTestConn";
 import { createTypeormConn } from "./utils/createTypeormConn";
 import { middleware } from "./middleware";
+import { userLoader } from "./loaders/UserLoader";
 // import { middlwareShield } from "./shield";
 
 const SESSION_SECRET = "sjkldfhaiofhewuio";
@@ -37,6 +38,7 @@ export const startServer = async () => {
       url: request.protocol + "://" + request.get("host"),
       session: request.session,
       req: request,
+      userLoader: userLoader(),
     }),
   });
 
@@ -80,8 +82,8 @@ export const startServer = async () => {
   if (process.env.NODE_ENV === "test") {
     await createTestConn(true);
   } else {
-    const conn = await createTypeormConn();
-    await conn.runMigrations();
+    await createTypeormConn();
+    // await conn.runMigrations();
   }
 
   const port = process.env.PORT || 4000;
